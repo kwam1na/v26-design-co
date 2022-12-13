@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@anatoliygatt/use-prefers-color-scheme": "^1.0.5",
     "@emotion/react": "^11.10.5",
     "@mantine/core": "^5.8.4",
     "@mantine/hooks": "^5.8.4",
@@ -25,10 +24,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-transition-group": "^4.4.5",
-    "sass": "^1.56.1",
-    "typescript": "4.8.4"
+    "sass": "^1.56.1"
   },
   "devDependencies": {
-    "@types/google-spreadsheet": "^3.3.0"
+    "@types/google-spreadsheet": "^3.3.0",
+    "typescript": "^4.9.4"
   }
 }

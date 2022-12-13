@@ -4,11 +4,11 @@ import styles from "../styles/Contact.module.scss";
 import Button from "../components/button";
 import Link from "next/link";
 import { Arrow } from "../assets/Arrow";
-import { usePrefersColorScheme } from "@anatoliygatt/use-prefers-color-scheme";
 import { TextInput, Textarea, LoadingOverlay, Modal } from "@mantine/core";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import * as EmailValidator from "email-validator";
 import Head from "next/head";
+import { usePrefersColorScheme } from "../hooks/usePrefersColorScheme";
 
 export default function Contact() {
   const leftSection = React.useRef(null);
@@ -18,6 +18,7 @@ export default function Contact() {
   const [email, setEmail] = React.useState("");
   const [bio, setBio] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
   const [showEmailWarning, setShowEmailWarning] = React.useState(false);
   const [error, setError] = React.useState(false);
 
@@ -83,6 +84,7 @@ export default function Contact() {
         const sheet = doc.sheetsById[SHEET_ID];
         const _result = await sheet.addRow(row);
         window.location.href = "/confirm";
+        setSubmitted(true);
       } catch (e) {
         console.error("Error: ", e);
         setError(true);
@@ -191,7 +193,11 @@ export default function Contact() {
             </div>
             {enteredText && (
               <div className={styles.submitButton}>
-                <Button title="Submit" onClick={handleSubmit} />
+                <Button
+                  title="Submit"
+                  onClick={handleSubmit}
+                  disabled={submitted}
+                />
               </div>
             )}
           </div>

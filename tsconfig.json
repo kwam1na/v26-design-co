@@ -1,19 +1,25 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "esnext",
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "preserve",
     "allowJs": true,
+    "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "incremental": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true
+    "isolatedModules": true
   },
   "include": [
     "animation/TransitionLayout.js",
@@ -24,5 +30,7 @@
     "context/TransitionContext.js",
     "components/Layout.jsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

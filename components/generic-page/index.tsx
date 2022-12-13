@@ -1,10 +1,10 @@
 import * as React from "react";
 import styles from "./GenericPage.module.scss";
 import Link from "next/link";
-import { usePrefersColorScheme } from "@anatoliygatt/use-prefers-color-scheme";
 import { Arrow } from "../../assets/Arrow";
 import { gsap, Power3 } from "gsap";
 import Head from "next/head";
+import { usePrefersColorScheme } from "../../hooks/usePrefersColorScheme";
 
 export default function GenericPage({
   title,
@@ -16,6 +16,7 @@ export default function GenericPage({
   body: string;
 }) {
   const preferredColorScheme = usePrefersColorScheme();
+
   const content = React.useRef(null);
 
   React.useEffect(() => {

@@ -21,8 +21,7 @@ const Layout = ({ children }) => {
           }}
           onExit={(node) => {
             gsap.to(node, {
-              autoAlpha: 0.4,
-              y: 56,
+              autoAlpha: 0,
               duration: 2.4,
             });
           }}

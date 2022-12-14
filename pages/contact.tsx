@@ -4,11 +4,13 @@ import styles from "../styles/Contact.module.scss";
 import Button from "../components/button";
 import Link from "next/link";
 import { Arrow } from "../assets/Arrow";
-import { TextInput, Textarea, LoadingOverlay, Modal } from "@mantine/core";
+import { TextInput, Textarea, Overlay, Modal } from "@mantine/core";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import * as EmailValidator from "email-validator";
 import Head from "next/head";
 import { usePrefersColorScheme } from "../hooks/usePrefersColorScheme";
+import { useRouter } from "next/router";
+import Loader from "../components/loader";
 
 export default function Contact() {
   const leftSection = React.useRef(null);
@@ -23,6 +25,7 @@ export default function Contact() {
   const [error, setError] = React.useState(false);
 
   const preferredColorScheme = usePrefersColorScheme();
+  const router = useRouter();
 
   const SPREADSHEET_ID = process.env.NEXT_PUBLIC_SPREADSHEET_ID ?? "";
   const SHEET_ID = process.env.NEXT_PUBLIC_SHEET_ID ?? "";
@@ -68,11 +71,10 @@ export default function Contact() {
   };
 
   const handleSubmit = () => {
+    setIsSubmitting(true);
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
     const appendSpreadsheet = async (row: any) => {
-      setIsSubmitting(true);
-
       try {
         await doc.useServiceAccountAuth({
           client_email: CLIENT_EMAIL,
@@ -83,7 +85,7 @@ export default function Contact() {
 
         const sheet = doc.sheetsById[SHEET_ID];
         const _result = await sheet.addRow(row);
-        window.location.href = "/confirm";
+        router.push("/confirm");
         setSubmitted(true);
       } catch (e) {
         console.error("Error: ", e);
@@ -106,10 +108,16 @@ export default function Contact() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.container}>
-        <LoadingOverlay
-          visible={isSubmitting}
-          loaderProps={{ color: `var(--color-${preferredColorScheme})` }}
-        />
+        {isSubmitting && (
+          <>
+            <Overlay
+              opacity={1}
+              color={`var(--main-bg-color-${preferredColorScheme})`}
+              zIndex={5}
+            />
+            <Loader position="absolute" />
+          </>
+        )}
         <Modal
           opened={error}
           onClose={() => setError(false)}

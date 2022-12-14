@@ -8,7 +8,6 @@ export default function Home() {
   const companyName = React.useRef(null);
   const ctaSection = React.useRef(null);
   const ctaButton = React.useRef(null);
-  const [isActive, setIsActive] = React.useState(false);
 
   React.useEffect(() => {
     gsap.to(ctaSection.current, {
@@ -45,7 +44,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.ctaContainer} ref={ctaSection}>
           <h3 className={styles.ctaText}>
-            let's create your personal web presence,
+            let's create your web presence,
             <span className={styles.highlighted}> together</span>
           </h3>
 

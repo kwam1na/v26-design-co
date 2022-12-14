@@ -52,3 +52,53 @@ a {
     background: var(--main-bg-color-light);
   }
 }
+
+.loader-bg {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(var(--main-bg-color-dark), 0.4);
+  opacity: 0.4;
+}
+
+.loader {
+  margin: auto;
+  /* border: 8px solid #eaf0f6; */
+  border-radius: 50%;
+  /* border-bottom: 8px solid #ff7a59; */
+  width: 54px;
+  height: 54px;
+  animation: spinner 2.5s linear infinite;
+  transition-timing-function: ease;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.dot-stretching {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--light-cyan);
+  transform: scale(1.25, 1.25);
+  animation: dot-stretching 2s infinite ease-in;
+}
+
+@keyframes dot-stretching {
+  0% {
+    transform: scale(1.25, 1.25);
+  }
+  50%,
+  60% {
+    transform: scale(0.8, 0.8);
+  }
+  100% {
+    transform: scale(1.25, 1.25);
+  }
+}

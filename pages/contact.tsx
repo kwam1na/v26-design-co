@@ -11,6 +11,7 @@ import Head from "next/head";
 import { usePrefersColorScheme } from "../hooks/usePrefersColorScheme";
 import { useRouter } from "next/router";
 import Loader from "../components/loader";
+import axios from "axios";
 
 export default function Contact() {
   const leftSection = React.useRef(null);
@@ -71,33 +72,52 @@ export default function Contact() {
   };
 
   const handleSubmit = () => {
-    setIsSubmitting(true);
-    const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
+    // setIsSubmitting(true);
+    // const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
-    const appendSpreadsheet = async (row: any) => {
-      try {
-        await doc.useServiceAccountAuth({
-          client_email: CLIENT_EMAIL,
-          private_key: PRIVATE_KEY,
-        });
-        // loads document properties and worksheets
-        await doc.loadInfo();
+    // const appendSpreadsheet = async (row: any) => {
+    //   try {
+    //     await doc.useServiceAccountAuth({
+    //       client_email: CLIENT_EMAIL,
+    //       private_key: PRIVATE_KEY,
+    //     });
+    //     // loads document properties and worksheets
+    //     await doc.loadInfo();
 
-        const sheet = doc.sheetsById[SHEET_ID];
-        const _result = await sheet.addRow(row);
-        router.push("/confirm");
-        setSubmitted(true);
-      } catch (e) {
-        console.error("Error: ", e);
+    //     const sheet = doc.sheetsById[SHEET_ID];
+    //     const _result = await sheet.addRow(row);
+    //     router.push("/confirm");
+    //     setSubmitted(true);
+    //   } catch (e) {
+    //     console.error("Error: ", e);
+    //     setError(true);
+    //   } finally {
+    //     setIsSubmitting(false);
+    //   }
+    // };
+
+    // const newRow = { Name: name, Email: email, Bio: bio };
+
+    // appendSpreadsheet(newRow);
+
+    axios
+      .post("/api/submit", {
+        name: name,
+        email: email,
+        bio: bio,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          router.push("/confirm");
+          setSubmitted(true);
+          setIsSubmitting(false);
+        }
+      })
+      .catch((error) => {
         setError(true);
-      } finally {
+        setSubmitted(true);
         setIsSubmitting(false);
-      }
-    };
-
-    const newRow = { Name: name, Email: email, Bio: bio };
-
-    appendSpreadsheet(newRow);
+      });
   };
 
   return (

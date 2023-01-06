@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import Router from "next/router";
 import * as React from "react";
 import Loader from "../components/loader";
+import Layout from "../components/Layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -28,15 +29,18 @@ export default function App({ Component, pageProps }: AppProps) {
       if (!isLoading && showLoader) {
         setShowLoader(false);
       }
-    }, 800);
+    }, 1500);
 
     return () => clearInterval(interval);
   }, [isLoading, showLoader, setShowLoader]);
 
-  return (
-    <>
-      {showLoader && <Loader />}
-      <Component {...pageProps} />
-    </>
-  );
+  const Content = () => {
+    return (
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    );
+  };
+
+  return showLoader ? <Loader /> : <Content />;
 }

@@ -36,7 +36,7 @@ export default function Contact() {
 
   React.useEffect(() => {
     gsap.to(leftSection.current, {
-      duration: 1.8,
+      duration: 0.8,
       opacity: 1,
       delay: 1,
       y: 0,
@@ -44,17 +44,17 @@ export default function Contact() {
     });
 
     gsap.to(rightSection.current, {
-      duration: 2,
+      duration: 1,
       opacity: 1,
       y: 0,
-      delay: 2,
+      delay: 1.5,
       ease: Power3.easeOut,
     });
 
     gsap.to(footer.current, {
-      duration: 3,
+      duration: 1,
       opacity: 1,
-      delay: 3,
+      delay: 2,
       ease: Power3.easeOut,
     });
   }, []);
@@ -72,34 +72,6 @@ export default function Contact() {
   };
 
   const handleSubmit = () => {
-    // setIsSubmitting(true);
-    // const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
-
-    // const appendSpreadsheet = async (row: any) => {
-    //   try {
-    //     await doc.useServiceAccountAuth({
-    //       client_email: CLIENT_EMAIL,
-    //       private_key: PRIVATE_KEY,
-    //     });
-    //     // loads document properties and worksheets
-    //     await doc.loadInfo();
-
-    //     const sheet = doc.sheetsById[SHEET_ID];
-    //     const _result = await sheet.addRow(row);
-    //     router.push("/confirm");
-    //     setSubmitted(true);
-    //   } catch (e) {
-    //     console.error("Error: ", e);
-    //     setError(true);
-    //   } finally {
-    //     setIsSubmitting(false);
-    //   }
-    // };
-
-    // const newRow = { Name: name, Email: email, Bio: bio };
-
-    // appendSpreadsheet(newRow);
-
     axios
       .post("/api/submit", {
         name: name,
@@ -159,14 +131,14 @@ export default function Contact() {
         </Modal>
         <div className={styles.left} ref={leftSection}>
           <div className={styles.leftContent}>
-            <div className={styles.backContainer}>
+            {/* <div className={styles.backContainer}>
               <Link href="/" className={styles.back}>
                 <div className={styles.arrow}>
                   <Arrow color={`var(--color-${preferredColorScheme})`} />
                 </div>
                 <p>Back</p>
               </Link>
-            </div>
+            </div> */}
             <div className={styles.message}>
               looking forward to working with you
             </div>
@@ -232,11 +204,11 @@ export default function Contact() {
         </div>
       </div>
 
-      <footer className={styles.footer} ref={footer}>
+      {/* <footer className={styles.footer} ref={footer}>
         <p className={styles.copyright}>
           &copy; 2022 v26 Design Co. All rights reserved.
         </p>
-      </footer>
+      </footer> */}
     </div>
   );
 }

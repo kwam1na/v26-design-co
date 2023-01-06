@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.flankLeft {
+  width: 10%;
+}
+
+.flankRight {
+  width: 10%;
+}
+
+.children {
+  width: 80%;
+}

@@ -1,34 +1,26 @@
-import { SwitchTransition, Transition } from "react-transition-group";
-import { useRouter } from "next/router";
-import { gsap } from "gsap";
+import Head from "next/head";
+import NavigationBar from "./navigation-bar";
+import Footer from "./footer";
+import React from "react";
+import { MobileMenu } from "./mobile-nav-menu";
 
 // const TIMEOUT = 2000;
 const TIMEOUT = 250;
 const gsapDuration = TIMEOUT / 1000;
 
 const Layout = ({ children }) => {
-  const router = useRouter();
-
+  const [clicked, setClicked] = React.useState(false);
   return (
-    <div>
-      <SwitchTransition>
-        <Transition
-          key={router.pathname}
-          timeout={TIMEOUT}
-          onEnter={(node) => {
-            gsap.set(node, { autoAlpha: 0 });
-            gsap.to(node, { autoAlpha: 1, duration: gsapDuration * 3 });
-          }}
-          onExit={(node) => {
-            gsap.to(node, {
-              autoAlpha: 0,
-              duration: 2.4,
-            });
-          }}
-        >
-          {children}
-        </Transition>
-      </SwitchTransition>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <Head>
+        <title>v26 Design Co.</title>
+        <meta name="description" content="Web design company" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <NavigationBar clicked={clicked} setClicked={setClicked} />
+      {clicked ? <MobileMenu /> : children}
+      {!clicked && <Footer />}
     </div>
   );
 };

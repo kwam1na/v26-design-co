@@ -32,7 +32,7 @@ export default function Contact() {
   const preferredColorScheme = usePrefersColorScheme();
   const router = useRouter();
 
-  axios.defaults.baseURL = "http://localhost:8000";
+  axios.defaults.baseURL = "http://v26design.co:8000";
 
   React.useEffect(() => {
     animateSections();
@@ -69,6 +69,7 @@ export default function Contact() {
   };
 
   const handleSubmit = () => {
+    setIsSubmitting(true);
     axios
       .post("/api/submit", {
         name: name,

@@ -14,25 +14,22 @@ import { useRouter } from "next/router";
 import Loader from "../components/loader";
 import axios from "axios";
 import Page from "../components/page";
-import { setTimeout } from "timers";
+import config from "../config.json";
 
 export default function Contact() {
   const leftSection = React.useRef(null);
   const rightSection = React.useRef(null);
-  const footer = React.useRef(null);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [bio, setBio] = React.useState("");
+  const [services, setServices] = React.useState("");
+  const [message, setMessage] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [submitted, setSubmitted] = React.useState(false);
   const [showEmailWarning, setShowEmailWarning] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [closedModal, setClosedModal] = React.useState(false);
 
   const preferredColorScheme = usePrefersColorScheme();
   const router = useRouter();
-
-  axios.defaults.baseURL = "http://localhost:8000";
+  axios.defaults.baseURL = config.prod.axiosBaseURL;
 
   React.useEffect(() => {
     animateSections();
@@ -56,7 +53,8 @@ export default function Contact() {
     });
   };
 
-  const enteredText = name !== "" && email !== "" && bio !== "";
+  const enteredText =
+    name !== "" && email !== "" && services !== "" && message !== "";
 
   const handleOnEmailEntered = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!EmailValidator.validate(e.target.value)) {
@@ -74,19 +72,18 @@ export default function Contact() {
       .post("/api/submit", {
         name: name,
         email: email,
-        bio: bio,
+        services: services,
+        message: message,
       })
       .then((response) => {
         if (response.status === 200) {
           router.push("/confirm");
-          setSubmitted(true);
           setIsSubmitting(false);
         }
       })
       .catch((error) => {
         console.log("error ->", error);
         setError(true);
-        setSubmitted(true);
         setIsSubmitting(false);
       });
   };
@@ -98,12 +95,6 @@ export default function Contact() {
 
   return (
     <div>
-      <Head>
-        <title>Contact | v26 Design Co.</title>
-        <meta name="description" content="Web design company" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       {isSubmitting && (
         <>
           <Overlay
@@ -136,7 +127,7 @@ export default function Contact() {
         </div>
       </Modal>
       {!isSubmitting && (
-        <Page>
+        <Page title={"Contact | v26 Design Co."}>
           <div className={styles.container}>
             <div className={styles.left} ref={leftSection}>
               <div className={styles.leftContent}>
@@ -165,6 +156,7 @@ export default function Contact() {
                       },
                     }}
                     onChange={(e) => setName(e.target.value)}
+                    defaultValue={name !== "" ? name : undefined}
                   />
                 </div>
                 <div className={styles.textfield}>
@@ -190,6 +182,7 @@ export default function Contact() {
                     error={
                       showEmailWarning && "Please enter a valid email address"
                     }
+                    defaultValue={email !== "" ? email : undefined}
                   />
                 </div>
 
@@ -205,7 +198,8 @@ export default function Contact() {
                         color: `var(--color-${preferredColorScheme})`,
                       },
                     }}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => setServices(e.target.value)}
+                    defaultValue={services !== "" ? services : undefined}
                   />
                 </div>
                 <div className={styles.textArea}>
@@ -222,7 +216,8 @@ export default function Contact() {
                         color: `var(--color-${preferredColorScheme})`,
                       },
                     }}
-                    onChange={(e) => setBio(e.target.value)}
+                    onChange={(e) => setMessage(e.target.value)}
+                    defaultValue={message !== "" ? message : undefined}
                   />
                 </div>
                 <div className={styles.submitButton}>

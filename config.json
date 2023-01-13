@@ -1,3 +1,8 @@
 {
-  "baseURL": ""
+  "prod": {
+    "axiosBaseURL": "https://v26-design-co.herokuapp.com"
+  },
+  "dev": {
+    "axiosBaseURL": "http://localhost:8000"
+  }
 }

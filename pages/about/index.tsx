@@ -64,7 +64,7 @@ export default function About() {
 
   return (
     <div ref={container}>
-      <Page>
+      <Page title={"About | v26 Design Co."}>
         <div className={styles.container}>
           <h1 className={styles.mainHeading} ref={mainHeading}>
             Let's create your <span className={styles.italic}>unique</span> web

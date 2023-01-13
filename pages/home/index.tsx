@@ -32,14 +32,8 @@ export default function Home() {
   }, []);
 
   return (
-    <Page>
+    <Page title={"v26 Design Co"}>
       <div className={styles.container}>
-        <Head>
-          <title>v26 Design Co.</title>
-          <meta name="description" content="Web design company" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
         <section className={styles.main}>
           <div className={styles.ctaContainer} ref={ctaSection}>
             <div className={styles.companyName}>

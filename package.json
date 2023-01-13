@@ -20,6 +20,7 @@
     "email-validator": "^2.0.4",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3",
+    "firebase-functions": "^4.1.1",
     "google-spreadsheet": "^3.3.0",
     "gsap": "^3.11.3",
     "next": "13.0.3",

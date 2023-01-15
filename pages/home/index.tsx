@@ -32,7 +32,7 @@ export default function Home() {
   }, []);
 
   return (
-    <Page title={"v26 Design Co"}>
+    <Page title={"v26 Design Co."}>
       <div className={styles.container}>
         <section className={styles.main}>
           <div className={styles.ctaContainer} ref={ctaSection}>

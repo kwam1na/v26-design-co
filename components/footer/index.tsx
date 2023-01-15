@@ -10,13 +10,19 @@ export default function Footer() {
       </div>
       <div className={styles.separator} />
       <div className={styles.socials}>
-        <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+        <a
+          href={socialLinks.twitter}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.socialLink}
+        >
           <p>Twitter</p>
         </a>
         <a
           href={socialLinks.instagram}
           target="_blank"
           rel="noopener noreferrer"
+          className={styles.socialLink}
         >
           <p>Instagram</p>
         </a>

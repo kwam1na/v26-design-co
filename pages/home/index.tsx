@@ -1,7 +1,6 @@
 import * as React from "react";
 import Page from "../../components/page";
 import styles from "./Home.module.scss";
-import Head from "next/head";
 import { gsap, Power3 } from "gsap";
 import Link from "next/link";
 import { Arrow } from "../../assets/Arrow";

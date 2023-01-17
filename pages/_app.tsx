@@ -1,14 +1,15 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Router from "next/router";
+import { Router } from "next/router";
 import * as React from "react";
 import Loader from "../components/loader";
 import Layout from "../components/Layout";
+import LoadingOverlay from "../components/loading-overlay";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
-  const [currentPath, setCurrentPath] = React.useState("");
+  const [completedLoading, setCompletedLoading] = React.useState(false);
 
   React.useEffect(() => {
     Router.events.on("routeChangeStart", (url) => {
@@ -43,5 +44,5 @@ export default function App({ Component, pageProps }: AppProps) {
     );
   };
 
-  return showLoader ? <Loader /> : <Content />;
+  return showLoader ? <LoadingOverlay transparent /> : <Content />;
 }

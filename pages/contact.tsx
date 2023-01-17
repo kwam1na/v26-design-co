@@ -2,19 +2,15 @@ import * as React from "react";
 import { gsap, Power3 } from "gsap";
 import styles from "../styles/Contact.module.scss";
 import Button from "../components/button";
-import Link from "next/link";
-import { Arrow } from "../assets/Arrow";
 import { TextInput, Textarea, Overlay, Modal } from "@mantine/core";
-import { GoogleSpreadsheet } from "google-spreadsheet";
 import { IconArrowDownLeft } from "@tabler/icons";
 import * as EmailValidator from "email-validator";
-import Head from "next/head";
 import { usePrefersColorScheme } from "../hooks/usePrefersColorScheme";
 import { useRouter } from "next/router";
-import Loader from "../components/loader";
 import axios from "axios";
 import Page from "../components/page";
 import config from "../config.json";
+import LoadingOverlay from "../components/loading-overlay";
 
 export default function Contact() {
   const leftSection = React.useRef(null);
@@ -77,7 +73,8 @@ export default function Contact() {
       })
       .then((response) => {
         if (response.status === 200) {
-          router.push("/confirm");
+          let uuid = self.crypto.randomUUID();
+          router.push(`/confirm?token='${uuid}'`);
           setIsSubmitting(false);
         }
       })
@@ -95,17 +92,7 @@ export default function Contact() {
 
   return (
     <div>
-      {isSubmitting && (
-        <>
-          <Overlay
-            opacity={1}
-            color={`var(--main-bg-color-${preferredColorScheme})`}
-            zIndex={5}
-            style={{ top: 0, bottom: "-12%" }}
-          />
-          <Loader position="absolute" />
-        </>
-      )}
+      {isSubmitting && <LoadingOverlay transparent />}
 
       <Modal
         opened={error}

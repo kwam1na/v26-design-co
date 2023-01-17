@@ -74,7 +74,7 @@ export default function Contact() {
       .then((response) => {
         if (response.status === 200) {
           let uuid = self.crypto.randomUUID();
-          router.push(`/confirm?token='${uuid}'`);
+          router.push(`/confirm?token=${uuid}`);
           setIsSubmitting(false);
         }
       })
@@ -83,6 +83,7 @@ export default function Contact() {
         setError(true);
         setIsSubmitting(false);
       });
+    return false;
   };
 
   const handleCloseModal = () => {

@@ -122,7 +122,7 @@ export default function Contact() {
         <div>
           <p className={styles.errorBody}>
             Something went wrong. Please try again. If this persists, contact
-            <span className={styles.email}> kwami.nuh@gmail.com.</span>
+            <span className={styles.email}> support@v26design.co</span>
           </p>
         </div>
       </Modal>
@@ -132,7 +132,7 @@ export default function Contact() {
             <div className={styles.left} ref={leftSection}>
               <div className={styles.leftContent}>
                 <div className={styles.message}>
-                  looking forward to working with you
+                  looking forward to working with you.
                 </div>
               </div>
             </div>
